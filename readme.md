@@ -1,10 +1,12 @@
-#  Inflation-Based Household Expense Forecasting
+# Expense Forecasting Dashboard
 
 ## Features
-- Mathematical Model (Expected Value)
-- Monte Carlo Simulation
 - Machine Learning Prediction
-- Interactive Dashboard (Streamlit)
+- Mathematical Model
+- Monte Carlo Simulation
+- Confidence Intervals
+- Dynamic Categories
+- Advanced Statistical Analysis
 
 ## How to Run
 pip install -r requirements.txt
