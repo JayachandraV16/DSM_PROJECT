@@ -6,9 +6,6 @@ __pycache__/
 venv/
 .env/
 
-# Model files (optional: include if large)
-*.pkl
-
 # OS files
 .DS_Store
 Thumbs.db
