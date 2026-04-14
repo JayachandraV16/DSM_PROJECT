@@ -12,12 +12,19 @@ from src.simulation import monte_carlo, advanced_simulation
 
 st.set_page_config(page_title="Expense Forecasting Dashboard", layout="wide")
 
-# ---------------- LOAD MODEL ----------------
-if not os.path.exists("models/forecast_model.pkl"):
-    st.error("Model not found. Run main.py first.")
-    st.stop()
+import os
 
-model = joblib.load("models/forecast_model.pkl")
+# Auto-create models if missing
+if not os.path.exists("models/forecast_model.pkl") or not os.path.exists("models/risk_model.pkl"):
+    st.warning("Models not found. Training automatically...")
+
+    import main  # runs main.py
+
+    st.success("Models created successfully!")
+
+# Load models
+forecast_model = joblib.load("models/forecast_model.pkl")
+risk_model = joblib.load("models/risk_model.pkl")
 
 # ---------------- FUNCTIONS ----------------
 
@@ -109,7 +116,22 @@ with tab1:
 
     if st.button("Predict Expense"):
         X = [[income, age, dependents]]
-        pred = model.predict(X)[0]
+
+        pred = forecast_model.predict(X)[0]
+        risk = risk_model.predict(X)[0] 
+
+        st.session_state.pred = pred
+        st.session_state.risk = risk
+
+        st.write("Predicted Expense:", round(pred, 2))
+
+        # Risk display
+        if risk == "Low":
+            st.success("Risk Level: Low")
+        elif risk == "Medium":
+            st.warning("Risk Level: Medium")
+        else:
+            st.error("Risk Level: High")
 
         st.session_state.pred = pred
         st.write("Predicted Expense:", round(pred, 2))
