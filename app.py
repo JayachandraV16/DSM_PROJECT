@@ -13,19 +13,28 @@ from src.simulation import monte_carlo, advanced_simulation
 st.set_page_config(page_title="Expense Forecasting Dashboard", layout="wide")
 
 import os
+import joblib
 
-# Auto-create models if missing
+# Ensure models folder exists
+os.makedirs("models", exist_ok=True)
+
+# Train models if missing
 if not os.path.exists("models/forecast_model.pkl") or not os.path.exists("models/risk_model.pkl"):
-    st.warning("Models not found. Training automatically...")
 
-    import main  # runs main.py
+    st.warning("Models not found. Training models...")
+
+    import main  # runs training script
+
+    # Double check after training
+    if not os.path.exists("models/forecast_model.pkl") or not os.path.exists("models/risk_model.pkl"):
+        st.error("Model creation failed. Check dataset path.")
+        st.stop()
 
     st.success("Models created successfully!")
 
-# Load models
+# Load models safely
 forecast_model = joblib.load("models/forecast_model.pkl")
 risk_model = joblib.load("models/risk_model.pkl")
-
 # ---------------- FUNCTIONS ----------------
 
 def monte_carlo_forecast_with_ci(F, V, mu, lambda_, E_C, months=12, sims=200):
