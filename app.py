@@ -149,7 +149,7 @@ Average Monthly Expense: Rs.{avg:,.0f}
 </div>
 """, unsafe_allow_html=True)
 
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(5, 3))
     ax.plot(past_data, color="#3b82f6", linewidth=2, marker='o')
     ax.fill_between(range(len(past_data)), past_data, alpha=0.15, color="#3b82f6")
     style_chart(ax, "Past Expense Trend", "Month", "Rs.")
@@ -214,7 +214,7 @@ Average Monthly Expense: Rs.{avg:,.0f}
 
         forecast = forecast_future(int(future_months), avg, 0.05)
 
-        fig2, ax2 = plt.subplots()
+        fig2, ax2 = plt.subplots(figsize=(5, 3))
         ax2.plot(forecast, color="#f97316", linewidth=2, marker='o')
         ax2.fill_between(range(len(forecast)), forecast, alpha=0.15, color="#f97316")
         style_chart(ax2, "Future Expense Projection", "Month", "Rs.")
@@ -237,14 +237,14 @@ with tab2:
 
         expenses, savings = simulate(F, V, mu, int(months_sim), income)
 
-        fig3, ax3 = plt.subplots()
+        fig3, ax3 = plt.subplots(figsize=(5, 3))
         ax3.plot(expenses, color="#ef4444", linewidth=2)
         ax3.fill_between(range(len(expenses)), expenses, alpha=0.15, color="#ef4444")
         style_chart(ax3, "Simulated Expenses", "Month", "Rs.")
         st.pyplot(fig3)
         st.caption("Expense variation over time")
 
-        fig4, ax4 = plt.subplots()
+        fig4, ax4 = plt.subplots(figsize=(5, 3))
         ax4.bar(range(len(savings)), savings,
                 color=["#10b981" if s >= 0 else "#ef4444" for s in savings])
         style_chart(ax4, "Simulated Savings", "Month", "Rs.")
@@ -274,7 +274,7 @@ with tab3:
     x = np.linspace(mu-4*sigma, mu+4*sigma, 200)
     y = norm.pdf(x, mu, sigma)
 
-    fig5, ax5 = plt.subplots()
+    fig5, ax5 = plt.subplots(figsize=(5, 3))
     ax5.plot(x, y, color="#3b82f6")
     ax5.fill_between(x, y, alpha=0.2, color="#3b82f6")
     style_chart(ax5, "Normal Distribution (Inflation)", "μ", "Density")
@@ -284,7 +284,7 @@ with tab3:
     k = np.arange(0, 10)
     y2 = poisson.pmf(k, lambda_)
 
-    fig6, ax6 = plt.subplots()
+    fig6, ax6 = plt.subplots(figsize=(5, 3))
     ax6.bar(k, y2, color="#f97316")
     style_chart(ax6, "Poisson Distribution (Events)", "Events", "Probability")
     st.pyplot(fig6)
@@ -293,7 +293,7 @@ with tab3:
     k = np.arange(0, 12)
     y3 = binom.pmf(k, 12, 0.5)
 
-    fig7, ax7 = plt.subplots()
+    fig7, ax7 = plt.subplots(figsize=(5, 3))
     ax7.bar(k, y3, color="#10b981")
     style_chart(ax7, "Binomial Distribution (Price Increase)", "Count", "Probability")
     st.pyplot(fig7)
