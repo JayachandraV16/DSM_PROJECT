@@ -1,10 +1,7 @@
 # Expense Forecasting Dashboard
 
 ## Features
-- Machine Learning Prediction
 - Mathematical Model
-- Monte Carlo Simulation
-- Confidence Intervals
 - Dynamic Categories
 - Advanced Statistical Analysis
 
